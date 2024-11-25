@@ -9,16 +9,16 @@ Terraform module for creation AWS Databricks Workspace
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
-| <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) | >= 1.55 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~>5.0 |
+| <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) | ~>1.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.11 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
-| <a name="provider_databricks"></a> [databricks](#provider\_databricks) | >= 1.55 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~>5.0 |
+| <a name="provider_databricks"></a> [databricks](#provider\_databricks) | ~>1.0 |
 | <a name="provider_time"></a> [time](#provider\_time) | ~> 0.11 |
 
 ## Modules
@@ -76,6 +76,7 @@ Terraform module for creation AWS Databricks Workspace
 | <a name="output_iam_role"></a> [iam\_role](#output\_iam\_role) | The IAM role created for cross-account access to the Databricks workspace |
 | <a name="output_storage"></a> [storage](#output\_storage) | The storage configuration for the DBFS bucket associated with the workspace |
 | <a name="output_workspace"></a> [workspace](#output\_workspace) | The Databricks workspace resource that has been created |
+| <a name="output_workspace_id"></a> [workspace\_id](#output\_workspace\_id) | The unique identifier of the Databricks workspace. |
 | <a name="output_workspace_url"></a> [workspace\_url](#output\_workspace\_url) | The URL for accessing the Databricks workspace |
 <!-- END_TF_DOCS -->
 
