@@ -4,11 +4,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.0"
+      version = "~>5.0"
     }
     databricks = {
       source  = "databricks/databricks"
-      version = ">= 1.55"
+      version = "~>1.0"
     }
     time = {
       source  = "hashicorp/time"
