@@ -8,8 +8,8 @@ Terraform module for creation AWS Databricks Workspace
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~>5.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
 | <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) | ~>1.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.11 |
 
@@ -17,7 +17,7 @@ Terraform module for creation AWS Databricks Workspace
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~>5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 6.0 |
 | <a name="provider_databricks"></a> [databricks](#provider\_databricks) | ~>1.0 |
 | <a name="provider_time"></a> [time](#provider\_time) | ~> 0.11 |
 
@@ -25,15 +25,16 @@ Terraform module for creation AWS Databricks Workspace
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_cross_account_workspace_policy"></a> [iam\_cross\_account\_workspace\_policy](#module\_iam\_cross\_account\_workspace\_policy) | terraform-aws-modules/iam/aws//modules/iam-policy | 5.41.0 |
-| <a name="module_iam_cross_account_workspace_role"></a> [iam\_cross\_account\_workspace\_role](#module\_iam\_cross\_account\_workspace\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role | 5.41.0 |
 | <a name="module_privatelink_vpce"></a> [privatelink\_vpce](#module\_privatelink\_vpce) | ./modules/privatelink/ | n/a |
-| <a name="module_storage_configuration_dbfs_bucket"></a> [storage\_configuration\_dbfs\_bucket](#module\_storage\_configuration\_dbfs\_bucket) | terraform-aws-modules/s3-bucket/aws | 4.1.2 |
+| <a name="module_storage_configuration_dbfs_bucket"></a> [storage\_configuration\_dbfs\_bucket](#module\_storage\_configuration\_dbfs\_bucket) | terraform-aws-modules/s3-bucket/aws | ~>5.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_iam_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_s3_bucket_policy.databricks_aws_bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [databricks_mws_credentials.this](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/mws_credentials) | resource |
 | [databricks_mws_networks.this](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/mws_networks) | resource |
