@@ -9,7 +9,7 @@ output "storage" {
 }
 
 output "iam_role" {
-  value       = try(module.iam_cross_account_workspace_role[0], null)
+  value       = try(aws_iam_role.this[0], null)
   description = "The IAM role created for cross-account access to the Databricks workspace"
 }
 

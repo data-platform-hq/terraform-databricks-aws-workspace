@@ -76,32 +76,32 @@ data "databricks_aws_assume_role_policy" "this" {
 
 data "databricks_aws_crossaccount_policy" "this" {}
 
-module "iam_cross_account_workspace_policy" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
-  version = "5.41.0"
-
+resource "aws_iam_policy" "this" {
   name   = coalesce(var.iam_cross_account_workspace_role_config.policy_name, "${var.label}-dbx-crossaccount-policy")
   policy = data.databricks_aws_crossaccount_policy.this.json
 }
 
-module "iam_cross_account_workspace_role" {
-  count   = var.iam_cross_account_workspace_role_enabled ? 1 : 0
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
-  version = "5.41.0"
+resource "aws_iam_role" "this" {
+  count = var.iam_cross_account_workspace_role_enabled ? 1 : 0
 
-  role_name                       = coalesce(var.iam_cross_account_workspace_role_config.role_name, "${var.label}-dbx-cross-account")
-  create_role                     = var.iam_cross_account_workspace_role_enabled
-  create_custom_role_trust_policy = true
-  custom_role_trust_policy        = data.databricks_aws_assume_role_policy.this.json
-  role_permissions_boundary_arn   = var.iam_cross_account_workspace_role_config.permission_boundary_arn
-  role_description                = var.iam_cross_account_workspace_role_config.role_description
-  custom_role_policy_arns         = [module.iam_cross_account_workspace_policy.arn]
-  tags                            = var.tags
+  name               = coalesce(var.iam_cross_account_workspace_role_config.role_name, "${var.label}-dbx-cross-account")
+  assume_role_policy = data.databricks_aws_assume_role_policy.this.json
+
+  permissions_boundary = var.iam_cross_account_workspace_role_config.permission_boundary_arn
+  description          = var.iam_cross_account_workspace_role_config.role_description
+  tags                 = var.tags
+}
+
+resource "aws_iam_role_policy_attachment" "this" {
+  count = var.iam_cross_account_workspace_role_enabled ? 1 : 0
+
+  role       = aws_iam_role.this[0].name
+  policy_arn = aws_iam_policy.this.arn
 }
 
 # It is required to wait up to 30 seconds after role creation so Databricks would successfuly reference it
 resource "time_sleep" "wait_30_seconds" {
-  depends_on = [module.iam_cross_account_workspace_role]
+  depends_on = [resource.aws_iam_role.this]
 
   create_duration = "30s"
 }
@@ -109,7 +109,7 @@ resource "time_sleep" "wait_30_seconds" {
 resource "databricks_mws_credentials" "this" {
   account_id       = var.account_id
   credentials_name = "${var.label}-credentials"
-  role_arn         = module.iam_cross_account_workspace_role[0].iam_role_arn
+  role_arn         = aws_iam_role.this[0].arn
 
   depends_on = [time_sleep.wait_30_seconds]
 }
@@ -124,7 +124,7 @@ data "databricks_aws_bucket_policy" "this" {
 module "storage_configuration_dbfs_bucket" {
   count   = var.storage_dbfs_enabled ? 1 : 0
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "4.1.2"
+  version = "~>5.0"
 
   bucket_prefix = coalesce(var.storage_dbfs_config.bucket_name, "${var.label}-dbfs-")
   acl           = "private"
