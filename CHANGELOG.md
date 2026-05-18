@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/data-platform-hq/terraform-databricks-aws-workspace/compare/v1.0.1...v1.1.0) (2026-05-18)
+
+
+### Features
+
+* aws provider 6 and iam refactor ([f7e3dd3](https://github.com/data-platform-hq/terraform-databricks-aws-workspace/commit/f7e3dd39582aab24600c56c585d9d356a7ce074d))
+
 ## [1.0.1](https://github.com/data-platform-hq/terraform-databricks-aws-workspace/compare/v1.0.0...v1.0.1) (2024-11-26)
 
 
